@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Wash</title>
+</head>
+<style>
+    div {
+        padding: 5px;
+    }
+
+    body {
+        text-align: center;
+        background-color: rgb(227, 215, 200);
+    }
+
+    img {
+        border-radius: 5px;
+        width: 350px;
+        height: 250px;
+        box-shadow: 20em;
+    }
+    
+    button {
+        margin: 20px;
+        width: auto;
+        padding: 5px;
+    }
+
+    button:hover {
+        cursor: pointer;
+        background-color: rgb(108, 131, 123);
+        color: white;
+    }
+
+    button:o
+
+    select {
+        padding: 5px;
+        border-radius: 3px;
+        background-color: rgb(240, 254, 250);
+    }
+</style>
+<body>
+    <div>
+        <img src="https://cdn2.lamag.com/wp-content/uploads/sites/6/2013/08/skylarcarwash660.jpg"></img>
+    </div>
+        <p>Step 1: Is there a ski rack attached?</p>
+        <label for="accept" >
+            <input type="checkbox" id="accept" name="ski"> +Ski rack (100kr)</input>
+        </label>
+    
+    <p>Step 2: Choose the type of wash</p>
+        <select id="select1" onchange="selectType(type)">
+            <option disabled selected value> -- select an option -- </option>
+            <option value="basic">Basic</option>a
+            <option value="standard">Standard</option>
+            <option value="premium">Premium</option>
+        </select>
+
+    <div>
+        <button onclick="getPrice()">Submit order</button>
+        <button onclick="reSet()">Reset order</button>
+    </div>
+
+    <p>Dear custromer, your total price will be:
+        <div id="priceDiv"></div>
+    </p>
+
+    <script>
+        let price  = 0;
+        let needSkiRack = false;
+        let type = "";
+
+        function selectType(){
+            selectElement = document.querySelector('#select1')
+            type = selectElement.value;
+            console.log(type)
+        }
+
+        const btn = document.querySelector('#accept');
+            btn.addEventListener('click', (event) => {
+            let checkbox = document.querySelectorAll('input[name="ski"]:checked');
+            needSkiRack = true;
+            console.log(needSkiRack)
+            })
+
+        function getPrice() {
+            if(type == "basic" && needSkiRack == true){
+                price = 300;
+            }
+            else if(type == "standard" && needSkiRack == true) {
+                price = 400;
+            }
+            else if(type = "premium" && needSkiRack == true) {
+                price = 500;
+            }
+            else if(type == "basic" && needSkiRack == false){
+                price = 200;
+            }
+            else if(type == "standard" && needSkiRack == false) {
+                price = 300;
+            }
+            else if(type = "premium" && needSkiRack == false) {
+                price = 400;
+            }
+            else alert("You have not made a selection! Try again.");
+
+            displayPrice();
+        }
+
+        function reSet() {
+            price = 0;
+            let inputs = document.getElementById('accept');
+                inputs.checked = false;
+            needSkiRack = false;
+            
+            console.log(price)
+            displayPrice();
+        }
+
+        function displayPrice() {
+            document.getElementById("priceDiv").innerHTML = `
+                ${price} kr.
+                `
+            }
+
+        </script>
+</body>
+</html>
