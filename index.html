@@ -47,13 +47,9 @@
     </div>
     
     <p>Step 1: Choose the type of wash</p>
-    <section id="choice">
-            <option disabled selected value> -- select an option -- </option>
-            <button id="choice" onclick="calculateBasic()">Basic</button>
-            <button id="choice" onclick="calculateStandard()">Standard</button>
-            <button id="choice" onclick="calculatePremium()">Premium</button>
-    </section>
-
+            <input id="choice1" type="radio" name="choice" value="basicwash" onchange="calculatePrice(this.value)">Basic</input>
+            <input id="choice2" type="radio" name="choice" value="standardwash" onchange="calculatePrice(this.value)">Standard</input>
+            <input id="choice3" type="radio" name="choice" value="premiumwash" onchange="calculatePrice(this.value)">Premium</input>
     <p>Step 2: Is there a ski rack attached?</p>
     <label>
         <input id="checkbox" type="checkbox" onclick="addSkirack()"> +Ski rack (100kr)</input>
@@ -71,35 +67,55 @@
         let priceDiv = document.getElementById('output');
         let price = 0;
 
+        function calculatePrice(wash) {   // eks verdi = "basicwash"
+            console.log(wash);
+            if(wash == "basicwash") price = 200;
+            if(wash == "standardwash") price = 300;
+            if(wash == "premiumwash") price = 400;
 
-        function calculateBasic() {
-            price = 200
-            console.log("The current price is", price)
             displayPrice();
         }
+        // function calculatePrice(name, price) {
 
-        function calculateStandard() {
-            price = 300
-            console.log("The current price is", price)
-            displayPrice();
-        }
+        //     const Basic = {
+        //         name: "basicwash",
+        //         priceOfService: 200,
+        //     }
 
-        function calculatePremium() {
-            price = 400
-            console.log("The current price is", price)
-        }
+        //     const Standard = {
+        //         name: "standardwash",
+        //         priceOfService: 300,
+        //     }
+
+        //     const Premium = {
+        //         name: "premiumwash",
+        //         priceOfService: 400,
+        //     }
+            
+        //     this.priceOfService = price;
+
+        //     console.log("price and service type: ", price, name)
+        //     displayPrice(price);
+        // }
 
         function addSkirack() {
             price = price + 100;
-            console.log("the new price incl skirack is ->", price)
             displayPrice();
         }
 
         function reSet() {
+            document.getElementById("checkbox").checked = false;
+
+            document.getElementById('choice1').checked = false;
+            document.getElementById('choice2').checked = false;
+            document.getElementById('choice3').checked = false;
+
             price = 0;
+            serviceType = "";
+
             console.log("The resetted price ->", price)
             displayPrice();
-            document.getElementById("checkbox").checked = false;
+
         }
 
         function displayPrice() {
